@@ -20,6 +20,8 @@ auto main() -> int {
             std::getline(std::cin, s);
             if (s == "exit") {
                 break;
+            } else if (s.empty()) {
+                continue;
             }
             std::stringstream ss(s);
             TransNumber n1;
@@ -44,7 +46,7 @@ auto main() -> int {
                     break;
             }
         } catch (std::logic_error& err) {
-            std::cout << "Ошибка: " << err.what() << std::endl;
+            std::cout << err.what() << std::endl;
         }
     }
     return 0;
