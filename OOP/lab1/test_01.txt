@@ -1,3 +1,2 @@
-2 3 pi
-5 9 pi
+2 3 pi + 5 9 pi
 exit
