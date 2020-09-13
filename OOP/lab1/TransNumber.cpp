@@ -88,4 +88,4 @@ auto operator>>(std::istream& in, TransNumber& n) -> std::istream& {
 auto operator<<(std::ostream& out, const TransNumber& n) -> std::ostream& {
     out << "(" << n.getRealPart() << ", " << n.getTransRealPart() << " * " << n.getConstant() << ")";
     return out;
-}
+} 
