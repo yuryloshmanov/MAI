@@ -11,27 +11,40 @@
 #include "TransNumber.hpp"
 
 auto main() -> int {
-    std::cout << "Чтобы выйти, введите exit" << std::endl;
+    std::cout << "Введите первое число, операцию, второе число\n" <<
+    "Пример: 2 5 C * 5 22 C\n" <<
+    "Чтобы выйти, введите exit" << std::endl;
     while (true) {
-        std::string line1;
-        std::string line2;
-        std::cout << "Введите первое число: ";
-        std::getline(std::cin, line1);
-        if (line1 == "exit") { break; }
-        std::cout << "Введите второе число: ";
-        std::getline(std::cin, line2);
-        if (line2 == "exit") { break; }
         try {
-            TransNumber n1(line1);
-            TransNumber n2(line2);
-            std::cout << "Первое число: " << n1 << std::endl;
-            std::cout << "Второе число: " << n2 << std::endl;
-            std::cout << "Сложение числел: " << n1 + n2 << std::endl;
-            std::cout << "Вычитание второго числа из первого: " << n1 - n2 << std::endl;
-            std::cout << "Умножение чисел: " << n1 * n2 << std::endl;
-            std::cout << "Деление первого числа на второе: " << n1 / n2 << std::endl;
+            std::string s;
+            std::getline(std::cin, s);
+            if (s == "exit") {
+                break;
+            }
+            std::stringstream ss(s);
+            TransNumber n1;
+            TransNumber n2;
+            char operation;
+            ss >> n1 >> std::ws >> operation >> std::ws >> n2;
+            switch (operation) {
+                case '+':
+                    std::cout << n1 + n2 << std::endl;
+                    break;
+                case '-':
+                    std::cout << n1 - n2 << std::endl;
+                    break;
+                case '*':
+                    std::cout << n1 * n2 << std::endl;
+                    break;
+                case '/':
+                    std::cout << n1 / n2 << std::endl;
+                    break;
+                default:
+                    std::cout << "Неизвестная операция" << std::endl;
+                    break;
+            }
         } catch (std::logic_error& err) {
-            std::cout << err.what() << std::endl;
+            std::cout << "Ошибка: " << err.what() << std::endl;
         }
     }
     return 0;

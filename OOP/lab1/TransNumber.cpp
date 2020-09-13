@@ -68,14 +68,20 @@ auto TransNumber::operator/(const TransNumber& rhs) const -> TransNumber {
     if (b.constant != rhs.b.constant) {
         throw std::logic_error("Константы должны быть идентичны");
     }
-
+    if (rhs.a == 0 || rhs.b.data == 0) {
+        throw std::logic_error("Деление на ноль недопустимо");
+    }
     return {a / rhs.a, b.data / rhs.b.data, b.constant};
 }
 
 auto operator>>(std::istream& in, TransNumber& n) -> std::istream& {
-    in >> n.setRealPart() >> n.setTransRealPart();
+    bool flag = true;
+    flag = flag && (in >> n.setRealPart()) && (in >> n.setTransRealPart());
     in.ignore(1);
-    in >> n.setConstant();
+    flag = flag && (in >> n.setConstant());
+    if (!flag) {
+        throw std::domain_error("Ошибка в ходе парсинга чисел");
+    }
     return in;
 }
 
