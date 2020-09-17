@@ -18,7 +18,7 @@ auto main() -> int {
         try {
             std::string s;
             std::getline(std::cin, s);
-            if (s == "exit") {
+            if (std::cin.eof() || s == "exit") {
                 break;
             } else if (s.empty()) {
                 continue;
