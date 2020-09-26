@@ -12,11 +12,16 @@ public:
     Vector();
     explicit Vector(size_t n);
     ~Vector();
+
     auto operator[](size_t index) -> T&;
     auto operator[](size_t index) const -> T;
     auto operator=(const Vector<T>& rhs) -> Vector<T>&;
+
     auto size() const -> size_t;
     auto pushBack(const T& value) -> void;
+
+    auto begin() -> T*;
+    auto end() -> T*;
 };
 
 
@@ -86,6 +91,17 @@ auto Vector<T>::pushBack(const T& value) -> void {
     }
     data_[size_] = value;
     size_++;
+}
+
+
+template <class T>
+auto Vector<T>::begin() -> T* {
+    return data_;
+}
+
+template <class T>
+auto Vector<T>::end() -> T* {
+    return data_ + size();
 }
 
 
