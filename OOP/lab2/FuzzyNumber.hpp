@@ -33,12 +33,31 @@ public:
     auto operator==(const FuzzyNumber& rhs) const -> bool;
     auto operator!=(const FuzzyNumber& rhs) const -> bool;
 
-    friend auto operator>>(std::istream& in, FuzzyNumber& fz) -> std::istream&;
-    friend auto operator<<(std::ostream& out, FuzzyNumber& fz) -> std::ostream&;
+    friend auto operator>>(std::istream& in, FuzzyNumber& fz) -> std::istream& {
+        in >> fz.x;
+        if (in.peek() == ',') {
+            in.ignore(1);
+        }
+        in >> std::ws >> fz.el;
+        if (in.peek() == ',') {
+            in.ignore(1);
+        }
+        in >> std::ws >> fz.er;
+        return in;
+    }
+    friend auto operator<<(std::ostream& out, FuzzyNumber fz) -> std::ostream& {
+        out << fz.x << ", " << fz.el << ", " << fz.er;
+        return out;
+    }
 };
 
-auto operator""_fz(const char* str, size_t) -> FuzzyNumber<double>;
 
+auto operator""_fz(const char* str, size_t) -> FuzzyNumber<double> {
+    std::stringstream ss(str);
+    FuzzyNumber<double> fz;
+    ss >> fz;
+    return fz;
+}
 
 template <class T>
 FuzzyNumber<T>::FuzzyNumber(): x(T()), el(T()), er(T()) {}
@@ -104,34 +123,6 @@ auto FuzzyNumber<T>::operator!=(const FuzzyNumber& rhs) const -> bool {
     return x != rhs.x;
 }
 
-
-template<class T>
-auto operator>>(std::istream& in, FuzzyNumber<T>& fz) -> std::istream& {
-    in >> fz.x;
-    if (in.peek() == ',') {
-        in.ignore(1);
-    }
-    in >> std::ws >> fz.el;
-    if (in.peek() == ',') {
-        in.ignore(1);
-    }
-    in >> std::ws >> fz.er;
-}
-
-
-template <class T>
-auto operator<<(std::ostream& out, FuzzyNumber<T>& fz) -> std::ostream& {
-    out << fz.x << ", " << fz.el << ", " << fz.er;
-    return out;
-}
-
-
-auto operator""_fz(const char* str, size_t) -> FuzzyNumber<double> {
-    std::stringstream ss(str);
-    FuzzyNumber<double> fz;
-    ss >> fz;
-    return fz;
-}
 
 
 #endif /* FuzzyNumber_hpp */
