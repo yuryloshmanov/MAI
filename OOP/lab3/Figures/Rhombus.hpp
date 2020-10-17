@@ -48,8 +48,7 @@ Rhombus::Rhombus(std::vector<std::pair<double, double>> coordinates) {
 
 
 auto Rhombus::geometriсСenter() -> std::pair<double, double> {
-    return std::make_pair(coordinates[0].first + (coordinates[1].first - coordinates[0].first) / 2,
-                          coordinates[2].second + (coordinates[0].second - coordinates[2].second) / 2);
+    return std::make_pair(coordinates[0].first + (coordinates[3].first - coordinates[0].first) / 2, coordinates[0].second + (coordinates[3].second - coordinates[0].second) / 2);
 }
 
 
