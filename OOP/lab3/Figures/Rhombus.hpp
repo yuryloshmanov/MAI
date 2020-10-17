@@ -44,6 +44,7 @@ Rhombus::Rhombus(std::vector<std::pair<double, double>> coordinates) {
     } else {
         std::cout << "valid rhombus" << std::endl;
     }
+    this->coordinates = coordinates;
 }
 
 
