@@ -53,7 +53,8 @@ auto Rhombus::geometriсСenter() -> std::pair<double, double> {
 
 
 auto Rhombus::square() -> double {
-    return std::abs(coordinates[1].first - coordinates[0].first) * std::abs(coordinates[2].second - coordinates[0].second);
+    return (sqrt(pow(coordinates[3].first - coordinates[0].first, 2) + pow(coordinates[3].second - coordinates[0].second, 2)) *
+    sqrt(pow(coordinates[1].first - coordinates[2].first, 2) + pow(coordinates[1].second - coordinates[2].second, 2))) / 2;
 }
 
 
