@@ -1,7 +1,8 @@
 //
 //  main.cpp
 //  lab3
-//
+//  Группа М8О-206Б-19
+//  Вариант 11
 //  Created by Юрий Лошманов on 16.10.2020.
 //
 
@@ -26,20 +27,20 @@ auto main() -> int {
         std::string command;
         ss >> command;
         if (command == "push") {
-            std::vector<std::pair<double, double>> values;
+            std::vector<std::pair<double, double>> coordinates;
             double x, y;
             while (ss >> x >> y) {
-                values.push_back(std::make_pair(x, y));
+                coordinates.emplace_back(x, y);
             }
-            if (values.size() == 4) {
+            if (coordinates.size() == 4) {
                 try {
-                    v.push_back(std::make_unique<Rectangle>(Rectangle(values)));
+                    v.push_back(std::make_unique<Rectangle>(Rectangle(coordinates)));
                 } catch (std::logic_error&) {
                     try {
-                        v.push_back(std::make_unique<Rhombus>(Rhombus(values)));
+                        v.push_back(std::make_unique<Rhombus>(Rhombus(coordinates)));
                     } catch (std::logic_error&) {
                         try {
-                            v.push_back(std::make_unique<Trapezoid>(Trapezoid(values)));
+                            v.push_back(std::make_unique<Trapezoid>(Trapezoid(coordinates)));
                         } catch (std::logic_error&) {
                             std::cerr << "invalid figure" << std::endl;
                         }
@@ -60,7 +61,7 @@ auto main() -> int {
             std::cout << sum << std::endl;
         } else if (command == "center") {
             for (const auto& fig: v) {
-                auto center = fig->geometriсСenter();
+                auto center = fig->geometricCenter();
                 std::cout << "(" << center.first << ", " << center.second << ")" << std::endl;
             }
         } else {
@@ -69,12 +70,3 @@ auto main() -> int {
     }
     return 0;
 }
-
-//
-//  push 2 2 2 4 6 2 6 4
-//  push 1 1 -1 -1 1 -1 -1 1
-//
-//  push -1 1 2 2 -2 -2 1 -1
-//
-//  push 0 0 2 4 6 4 8 0
-//

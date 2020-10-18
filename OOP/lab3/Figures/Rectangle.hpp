@@ -1,7 +1,8 @@
 //
 //  Rectangle.hpp
 //  lab3
-//
+//  Группа М8О-206Б-19
+//  Вариант 11
 //  Created by Юрий Лошманов on 16.10.2020.
 //
 
@@ -19,11 +20,11 @@
 
 class Rectangle: public Figure {
     std::vector<std::pair<double, double>> coordinates;
-    
+
 public:
-    Rectangle(std::vector<std::pair<double, double>> coordinates);
-    
-    auto geometriсСenter() -> std::pair<double, double> override;
+    explicit Rectangle(std::vector<std::pair<double, double>> coordinates);
+
+    auto geometricCenter() -> std::pair<double, double> override;
     auto square() -> double override;
 };
 
@@ -42,19 +43,22 @@ Rectangle::Rectangle(std::vector<std::pair<double, double>> coordinates) {
     ) {
         throw std::logic_error("Invalid rectangle");
     }
-    
+
     this->coordinates = coordinates;
 }
 
 
-auto Rectangle::geometriсСenter() -> std::pair<double, double> {
-    return std::make_pair(coordinates[0].first + (coordinates[1].first - coordinates[0].first) / 2,
-                          coordinates[2].second + (coordinates[0].second - coordinates[2].second) / 2);
+auto Rectangle::geometricCenter() -> std::pair<double, double> {
+    return std::make_pair(
+        coordinates[0].first + (coordinates[1].first - coordinates[0].first) / 2,
+        coordinates[2].second + (coordinates[0].second - coordinates[2].second) / 2
+    );
 }
 
 
 auto Rectangle::square() -> double {
-    return std::abs(coordinates[1].first - coordinates[0].first) * std::abs(coordinates[2].second - coordinates[0].second);
+    return std::abs(coordinates[1].first - coordinates[0].first) *
+    std::abs(coordinates[2].second - coordinates[0].second);
 }
 
 
