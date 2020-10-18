@@ -19,11 +19,9 @@
 #include "Figures/Rhombus.hpp"
 
 
-int main() {
+auto main() -> int {
     std::vector<std::unique_ptr<Figure>> v;
-    
-    std::string line;
-    while (std::getline(std::cin, line)) {
+    for (std::string line; std::getline(std::cin, line);) {
         std::stringstream ss(line);
         std::string command;
         ss >> command;
@@ -40,11 +38,13 @@ int main() {
                     try {
                         v.push_back(std::make_unique<Rhombus>(Rhombus(values)));
                     } catch (std::logic_error&) {
-                        
+                        try {
+                            v.push_back(std::make_unique<Trapezoid>(Trapezoid(values)));
+                        } catch (std::logic_error&) {
+                            std::cerr << "invalid figure" << std::endl;
+                        }
                     }
                 }
-            } else if (values.size() == 5) {
-                
             } else {
                 std::cerr << "invalid figure" << std::endl;
             }
@@ -54,12 +54,12 @@ int main() {
             v.erase(v.begin() + index);
         } else if (command == "square") {
             double sum = 0;
-            for (auto& fig: v) {
+            for (const auto& fig: v) {
                 sum += fig->square();
             }
             std::cout << sum << std::endl;
         } else if (command == "center") {
-            for (auto& fig: v) {
+            for (const auto& fig: v) {
                 auto center = fig->geometriсСenter();
                 std::cout << "(" << center.first << ", " << center.second << ")" << std::endl;
             }
@@ -73,4 +73,8 @@ int main() {
 //
 //  push 2 2 2 4 6 2 6 4
 //  push 1 1 -1 -1 1 -1 -1 1
+//
+//  push -1 1 2 2 -2 -2 1 -1
+//
+//  push 0 0 2 4 6 4 8 0
 //

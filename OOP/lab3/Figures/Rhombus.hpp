@@ -40,9 +40,7 @@ Rhombus::Rhombus(std::vector<std::pair<double, double>> coordinates) {
           sqrt(pow(coordinates[3].first - coordinates[1].first, 2) + pow(coordinates[3].second - coordinates[1].second, 2)) ==
           sqrt(pow(coordinates[3].first - coordinates[2].first, 2) + pow(coordinates[3].second - coordinates[2].second, 2))
     )) {
-        throw std::logic_error("invalid rhombus");
-    } else {
-        std::cout << "valid rhombus" << std::endl;
+        throw std::logic_error("Invalid rhombus");
     }
     this->coordinates = coordinates;
 }

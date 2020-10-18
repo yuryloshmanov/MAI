@@ -40,9 +40,7 @@ Rectangle::Rectangle(std::vector<std::pair<double, double>> coordinates) {
         !(coordinates[0].first == coordinates[2].first && coordinates[1].first == coordinates[3].first &&
         coordinates[0].second == coordinates[1].second && coordinates[2].second == coordinates[3].second)
     ) {
-        throw std::logic_error("invalid rectangle");
-    } else {
-        std::cout << "valid rectangle" << std::endl;
+        throw std::logic_error("Invalid rectangle");
     }
     
     this->coordinates = coordinates;
