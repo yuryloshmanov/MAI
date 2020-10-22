@@ -27,45 +27,53 @@ auto main() -> int {
         std::string command;
         ss >> command;
         if (command == "push") {
-            std::vector<std::pair<double, double>> coordinates;
+            std::vector<std::pair<double, double>> coord;
             double x, y;
             while (ss >> x >> y) {
-                coordinates.emplace_back(x, y);
+                coord.emplace_back(x, y);
             }
-            if (coordinates.size() == 4) {
+            if (coord.size() == 4) {
                 try {
-                    v.push_back(std::make_unique<Rectangle>(Rectangle(coordinates)));
+                    v.push_back(std::make_unique<Rectangle>(Rectangle(coord)));
                 } catch (std::logic_error&) {
                     try {
-                        v.push_back(std::make_unique<Rhombus>(Rhombus(coordinates)));
+                        v.push_back(std::make_unique<Rhombus>(Rhombus(coord)));
                     } catch (std::logic_error&) {
                         try {
-                            v.push_back(std::make_unique<Trapezoid>(Trapezoid(coordinates)));
+                            v.push_back(std::make_unique<Trapezoid>(Trapezoid(coord)));
                         } catch (std::logic_error&) {
-                            std::cerr << "invalid figure" << std::endl;
+                            std::cerr << "Invalid figure" << std::endl;
                         }
                     }
                 }
             } else {
-                std::cerr << "invalid figure" << std::endl;
+                std::cerr << "Invalid figure" << std::endl;
             }
         } else if (command == "del") {
             size_t index;
             ss >> index;
-            v.erase(v.begin() + index);
+            try {
+                v.erase(v.begin() + index);
+            } catch (...) {
+                std::cerr << "Invalid index" << std::endl;
+            }
         } else if (command == "square") {
             double sum = 0;
-            for (const auto& fig: v) {
-                sum += fig->square();
+            for (const auto& figure: v) {
+                sum += figure->square();
             }
             std::cout << sum << std::endl;
         } else if (command == "center") {
-            for (const auto& fig: v) {
-                auto center = fig->geometricCenter();
+            for (const auto& figure: v) {
+                auto center = figure->geometricCenter();
                 std::cout << "(" << center.first << ", " << center.second << ")" << std::endl;
             }
+        } else if (command == "coord_") {
+            for (const auto& figure: v) {
+                std::cout << *figure << std::endl;
+            }
         } else {
-            std::cerr << "invalid command" << std::endl;
+            std::cerr << "Invalid command" << std::endl;
         }
     }
     return 0;

@@ -19,8 +19,6 @@
 
 
 class Trapezoid: public Figure {
-    std::vector<std::pair<double, double>> coordinates;
-
 public:
     explicit Trapezoid(std::vector<std::pair<double, double>> coordinates);
 
@@ -29,26 +27,18 @@ public:
 };
 
 
-Trapezoid::Trapezoid(std::vector<std::pair<double, double>> coordinates) {
-    std::sort(coordinates.begin(), coordinates.end(), [](auto lhs, auto rhs) {
-        return lhs.first < rhs.first;
-    });
-    std::sort(coordinates.begin(), coordinates.end(), [](auto lhs, auto rhs) {
-        return lhs.second > rhs.second;
-    });
-
-    if (!(coordinates[0].second == coordinates[1].second && coordinates[2].second == coordinates[3].second)) {
+Trapezoid::Trapezoid(std::vector<std::pair<double, double>> coordinates): Figure(std::move(coordinates)) {
+    if (!(coord_[0].second == coord_[1].second && coord_[2].second == coord_[3].second)) {
         throw std::logic_error("Invalid trapezoid");
     }
-    this->coordinates = coordinates;
 }
 
 
 auto Trapezoid::geometricCenter() -> std::pair<double, double> {
-    auto [xa, ya] = coordinates[2];
-    auto [xb, yb] = coordinates[0];
-    auto [xc, yc] = coordinates[1];
-    auto [xd, yd] = coordinates[3];
+    auto [xa, ya] = coord_[2];
+    auto [xb, yb] = coord_[0];
+    auto [xc, yc] = coord_[1];
+    auto [xd, yd] = coord_[3];
 
     auto A = xc - xa;
     auto B = yc - ya;
@@ -63,10 +53,10 @@ auto Trapezoid::geometricCenter() -> std::pair<double, double> {
 
 
 auto Trapezoid::square() -> double {
-    auto a = coordinates[1].first - coordinates[0].first;
-    auto b = coordinates[3].first - coordinates[2].first;
+    auto a = coord_[1].first - coord_[0].first;
+    auto b = coord_[3].first - coord_[2].first;
 
-    auto h = coordinates[0].second - coordinates[2].second;
+    auto h = coord_[0].second - coord_[2].second;
 
     return h * (a + b) / 2;
 }
