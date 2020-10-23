@@ -68,7 +68,7 @@ auto main() -> int {
                 auto center = figure->geometricCenter();
                 std::cout << "(" << center.first << ", " << center.second << ")" << std::endl;
             }
-        } else if (command == "coord_") {
+        } else if (command == "coord") {
             for (const auto& figure: v) {
                 std::cout << *figure << std::endl;
             }
