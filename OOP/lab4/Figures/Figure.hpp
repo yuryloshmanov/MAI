@@ -48,4 +48,30 @@ auto operator<<(std::ostream& out, const Figure<T>& figure) -> std::ostream& {
 }
 
 
+template <class T, size_t index = 0>
+auto print(const T& tuple) -> typename std::enable_if<index >= std::tuple_size<T>::value, void>::type {
+}
+
+
+template <class T, size_t index = 0>
+auto print(const T& tuple) -> typename std::enable_if<index < std::tuple_size<T>::value, void>::type {
+    auto figure = std::get<index>(tuple);
+    std::cout << figure << std::endl;
+    print<T, index + 1>(tuple);
+}
+
+
+template <class T, size_t index = 0>
+auto square(const T& tuple) -> typename std::enable_if<index >= std::tuple_size<T>::value, double>::type {
+    return 0;
+}
+
+
+template <class T, size_t index = 0>
+auto square(const T& tuple) -> typename std::enable_if<index < std::tuple_size<T>::value, double>::type {
+    auto figure = std::get<index>(tuple);
+    return figure.square + square<T, index + 1>(tuple);
+}
+
+
 #endif /* Figure_hpp */

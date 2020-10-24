@@ -20,44 +20,44 @@
 #include "Figures/Rhombus.hpp"
 
 
-template <class T, size_t index = 0>
-auto print(const T& tuple) -> typename std::enable_if<index >= std::tuple_size<T>::value, void>::type {
+template <class T>
+auto randomRectangle() -> Rectangle<T> {
+    auto x1 = rand() % 1000;
+    auto x2 = rand() % 1000;
+    
+    auto y1 = rand() % 1000;
+    auto y2 = rand() % 1000;
+    
+    return Rectangle<T>({{x1, y1}, {x1, y2}, {x2, y1}, {x2, y2}});
 }
 
-
-template <class T, size_t index = 0>
-auto print(const T& tuple) -> typename std::enable_if<index < std::tuple_size<T>::value, void>::type {
-    auto figure = std::get<index>(tuple);
-    std::cout << figure << std::endl;
-    print<T, index + 1>(tuple);
+template <class T>
+auto randomTrapezoid() -> Trapezoid<T> {
+    auto x1 = rand() % 1000;
+    auto x2 = rand() % 1000;
+    auto x3 = rand() % 1000;
+    auto x4 = rand() % 1000;
+    
+    auto y1 = rand() % 1000;
+    auto y2 = rand() % 1000;
+    
+    return Trapezoid<T>({{x1, y1}, {x2, y2}, {x3, y1}, {x4, y2}});
 }
 
-
-template <class T, size_t index = 0>
-auto square(const T& tuple) -> typename std::enable_if<index >= std::tuple_size<T>::value, double>::type {
-    return 0;
+template <class T>
+auto randomRhombus() -> Rhombus<T> {
+    auto x = rand() % 1000;
+    auto dx = rand() % 1000;
+    
+    auto y = rand() % 1000;
+    auto dy = rand() % 1000;
+    
+    return Rhombus<T>({{x - dx, y}, {x, y + dy}, {x + dx, y}, {x, y - dy}});
 }
-
-
-template <class T, size_t index = 0>
-auto square(const T& tuple) -> typename std::enable_if<index < std::tuple_size<T>::value, double>::type {
-    auto figure = std::get<index>(tuple);
-    return figure.square + square<T, index + 1>(tuple);
-}
-
 
 auto main() -> int {
-    std::vector<std::pair<double, double>>
-    v1 = {{2, 2}, {2, 4}, {6, 2}, {6, 4}},
-    v2 = {{0, 0}, {2, 4}, {6, 4}, {8, 0}},
-    v3 = {{-1, 1}, {2, 2}, {-2, -2}, {1, -1}};
-    
-    auto rect = Rectangle(v1);
-    auto trapez = Trapezoid(v2);
-    auto rhomb = Rhombus(v3);
-    
-    auto tuple = std::make_tuple(rect, trapez, rhomb);
-    
+    auto tuple = std::make_tuple(randomRectangle<double>(), randomTrapezoid<double>(), randomRhombus<double>());
+
     for (std::string line; std::getline(std::cin, line);) {
         std::stringstream ss(line);
         std::string command;
