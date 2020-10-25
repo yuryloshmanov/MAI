@@ -52,9 +52,9 @@ auto main() -> int {
         } else if (command == "del") {
             size_t index;
             ss >> index;
-            try {
+            if (index >= 0 && index < v.size()) {
                 v.erase(v.begin() + index);
-            } catch (...) {
+            } else {
                 std::cerr << "Invalid index" << std::endl;
             }
         } else if (command == "square") {
