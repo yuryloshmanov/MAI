@@ -30,12 +30,12 @@ template <class T>
 Rhombus<T>::Rhombus(std::vector<std::pair<T, T>> coordinates): Figure<T>(std::move(coordinates)) {
     auto& coord = this->coord;
     auto& square = this->square;
-
+    
     if (!(sqrt(pow(coord[1].first - coord[0].first, 2) + pow(coord[1].second - coord[0].second, 2)) ==
           sqrt(pow(coord[2].first - coord[0].first, 2) + pow(coord[2].second - coord[0].second, 2)) &&
           sqrt(pow(coord[3].first - coord[1].first, 2) + pow(coord[3].second - coord[1].second, 2)) ==
           sqrt(pow(coord[3].first - coord[2].first, 2) + pow(coord[3].second - coord[2].second, 2)))
-            ) {
+    ) {
         throw std::logic_error("Invalid rhombus");
     }
     square = (sqrt(pow(coord[3].first - coord[0].first, 2) + pow(coord[3].second - coord[0].second, 2)) *

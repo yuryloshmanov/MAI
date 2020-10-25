@@ -20,7 +20,7 @@ class Figure {
 public:
     std::vector<std::pair<T, T>> coord;
     double square{};
-
+    
     Figure() = default;
     explicit Figure(std::vector<std::pair<T, T>> coordinates);
     virtual ~Figure() = default;
