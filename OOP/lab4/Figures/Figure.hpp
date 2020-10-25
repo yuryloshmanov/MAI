@@ -19,8 +19,8 @@ template <class T>
 class Figure {
 public:
     std::vector<std::pair<T, T>> coord;
-    double square;
-    
+    double square{};
+
     Figure() = default;
     explicit Figure(std::vector<std::pair<T, T>> coordinates);
     virtual ~Figure() = default;

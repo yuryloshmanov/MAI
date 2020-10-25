@@ -29,13 +29,13 @@ template <class T>
 Rectangle<T>::Rectangle(std::vector<std::pair<T, T>> coordinates): Figure<T>(std::move(coordinates)) {
     auto& coord = this->coord;
     auto& square = this->square;
-    
+
     if (!(coord[0].first == coord[2].first && coord[1].first == coord[3].first &&
           coord[0].second == coord[1].second && coord[2].second == coord[3].second)
-    ) {
+            ) {
         throw std::logic_error("Invalid rectangle");
     }
-    
+
     square = std::abs(coord[1].first - coord[0].first) * std::abs(coord[2].second - coord[0].second);
 }
 
