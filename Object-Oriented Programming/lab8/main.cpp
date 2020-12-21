@@ -84,7 +84,7 @@ int main(int argc, char *argv[]) {
                         q.pop();
                         Server<Figure<double>>::get().publish(val);
                     }
-                    std::this_thread::sleep_for(std::chrono::seconds(1));
+                    
                     Server<Figure<double>>::get().stop();
                     th.join();
                     q = std::queue<Figure<double>>();
